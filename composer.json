@@ -1,0 +1,14 @@
+{
+    "name": "piqus/bfp4f-limiter",
+    "description": "Battlefield Play4Free weapon limiter script",
+    "require": {
+        "piqus/bfp4f-rcon": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "piqus",
+            "email": "ovirendo@gmail.com"
+        }
+    ]
+}
