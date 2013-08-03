@@ -37,9 +37,9 @@ $configs = array(
     'prebuy_restricted' => array(3000, 3008),
 );
 
-$srv['srv_rcon']['ip']   = "127.0.0.1";
-$srv['srv_rcon']['port'] = "1337";
-$srv['srv_rcon']['pwd']  = "rconpassword";
+$srv['srv_rcon']['ip']   = "109.239.152.153";
+$srv['srv_rcon']['port'] = " 27100";
+$srv['srv_rcon']['pwd']  = "Yu652bgl7objk1";
 
 $scr = array(
       "cstMessage" => "%player you are being autokicked for %weapon",
@@ -53,19 +53,19 @@ $scr = array(
 
 /* Connect to DB 
  ********************/
-define('DB_TYPE', 'mongo');
+define('DB_TYPE', 'mysql');
 
-define('DB_HOST', '');
-define('DB_PORT', '');
-define('DB_USER', '');
-define('DB_PASS', '');
-define('DB_NAME', '');
+define('DB_HOST', 'localhost');
+define('DB_PORT', '3306');
+define('DB_USER', 'root');
+define('DB_PASS', 'Uhaw24K6');
+define('DB_NAME', 'limiter');
 
-if (DB_TYPE=="mongodb") {
-    require 'DB-mongo.php';
-} else {
-    require 'DB-pdosql.php';
-}
+// if (DB_TYPE=="mongodb") {
+    // require_once __DIR__ . '/DB-mongo.php';
+// } else {
+    require_once __DIR__ . '/DB-pdosql.php';
+// }
 
 $db = new DB();
 

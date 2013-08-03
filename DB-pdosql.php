@@ -44,15 +44,15 @@ class DB
 	/**
 	 * Insert into Logs table
 	 * 
-	 * @param  string $table   [description]
-	 * @param  string $pid          [description]
-	 * @param  int    $sid          [description]
-	 * @param  string $soldier_name [description]
-	 * @param  string $reason       [description]
+	 * @param  string $table        ?
+	 * @param  string $profile_id   ?
+	 * @param  int    $soldier_id   ?
+	 * @param  string $soldier_name ?
+	 * @param  string $reason       ?
 	 * 
 	 * @return void
 	 */
-	public function insertIntoLogs($table, $pid, $sid, $soldier_name, $reason, $autokickType)
+	public function insertIntoLogs($table, $profile_id, $soldier_id, $soldier_name, $reason)
 	{
 		$query  = "INSERT INTO " . $table . " ";
 		$query .= "(profile_id, soldier_id, soldier_name, date, reason) ";
@@ -61,15 +61,26 @@ class DB
 
 		$stmt = $this->_db->prepare($query);
 
-		$stmt->bindParam(':profile_id', $pid);
-		$stmt->bindParam(':soldier_id', $sid);
-		$stmt->bindParam(':soldier', $soldier_name);
-		$stmt->bindParam(':date', date("Y-m-d H:i:s"));
-		$stmt->bindParam(':reason', $reason);
+		$date = date("Y-m-d H:i:s");
+
+		$stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
+		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_INT);
+		$stmt->bindParam(':soldier', $soldier_name, PDO::PARAM_STR);
+		$stmt->bindParam(':date', $date, PDO::PARAM_STR);
+		$stmt->bindParam(':reason', $reason, PDO::PARAM_STR);
 
 		$stmt->execute();
 	}
 
+	/**
+	 * selectFromCache
+	 * 
+	 * @param  string $table      ?
+	 * @param  string $profile_id ?
+	 * @param  string $soldier_id ?
+	 * 
+	 * @return array
+	 */
 	public function selectFromCache($table, $profile_id, $soldier_id)
 	{
     	$query  = "SELECT * FROM " . $table . " ";
@@ -77,17 +88,27 @@ class DB
 
     	$stmt = $this->_db->prepare($query);
 
-		$stmt->bindParam(':profile_id', $pid);
-		$stmt->bindParam(':soldier_id', $sid);
+		$stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
+		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_INT);
 
 		$stmt->execute();
 
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$row['loadout'] = json_decode($row['loadout'])
+		$row['loadout'] = json_decode($row['loadout']);
 
 		return $row;
 	}
 
+	/**
+	 * insertIntoCache
+	 * 
+	 * @param  string $table      ?
+	 * @param  string $profile_id ?
+	 * @param  int    $soldier_id ?
+	 * @param  string $loadout    ?
+	 * 
+	 * @return int
+	 */
 	public function insertIntoCache($table, $profile_id, $soldier_id, $loadout)
 	{
 		$query  = "INSERT INTO " . $table . " ";
@@ -97,14 +118,27 @@ class DB
 
 		$stmt = $this->_db->prepare($query);
 
-		$stmt->bindParam(':profile_id', $pid);
-		$stmt->bindParam(':soldier_id', $sid);
-		$stmt->bindParam(':date', date("Y-m-d H:i:s"));
-		$stmt->bindParam(':loadout', json_encode($loadout));
+		$date = date("Y-m-d H:i:s");
+		$loadout = json_encode($loadout);
 
-		$stmt->execute();
+		$stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
+		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_INT);
+		$stmt->bindParam(':date', $date, PDO::PARAM_STR);
+		$stmt->bindParam(':loadout', $loadout, PDO::PARAM_STR);
+
+		return $stmt->execute();
 	}
 
+	/**
+	 * updateCache description
+	 * 
+	 * @param  string $table      ?
+	 * @param  string $profile_id ?
+	 * @param  int    $soldier_id ?
+	 * @param  string $loadout    ?
+	 * 
+	 * @return int
+	 */
 	public function updateCache($table, $profile_id, $soldier_id, $loadout)
 	{
 		$query  = "UPDATE " . $table . " SET ";
@@ -117,12 +151,15 @@ class DB
 
 		$stmt = $this->_db->prepare($query);
 
-		$stmt->bindParam(':profile_id', $pid);
-		$stmt->bindParam(':soldier_id', $sid);
-		$stmt->bindParam(':date', date("Y-m-d H:i:s"));
-		$stmt->bindParam(':loadout', json_encode($loadout));
+		$date = date("Y-m-d H:i:s");
+		$loadout = json_encode($loadout);
 
-		$stmt->execute();
+		$stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
+		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_INT);
+		$stmt->bindParam(':date', $date, PDO::PARAM_STR);
+		$stmt->bindParam(':loadout', $loadout, PDO::PARAM_STR);
+
+		return $stmt->execute();
 	}
 }
 ?>

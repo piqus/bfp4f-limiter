@@ -16,7 +16,7 @@
  */
 
 header('refresh: 60'); // Value = Seconds
-require_once __DIR__ . 'limter-config.php';
-require_once __DIR__ . 'limiter-script.php';
+require_once __DIR__ . '/limiter-config.php';
+require_once __DIR__ . '/limiter-script.php';
 
 ?>

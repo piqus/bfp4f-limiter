@@ -13,13 +13,13 @@ class DB
 		$this->_mdb = $m->selectDB($configs['db']);
 	}
 
-	public function insertIntoLogs($collection, $pid, $sid, $soldier_name, $reason)
+	public function insertIntoLogs($collection, $profile_id, $soldier_id, $soldier_name, $reason)
 	{
 		$c = $this->_mdb->selectCollection($collection);
         $c->insert(
             array(
-                'pid' => (string) $player->nucleusId,
-                'sid' => $player->cdKeyHash,
+                'profile_id' => (string) $profile_id,
+                'soldier_id' => $soldier_id,
                 'soldier' => $player->name,
                 'date' => date("Y-m-d H:i:s"),
                 'reason' => $decision['reason'],
@@ -30,7 +30,7 @@ class DB
 	public function selectFromCache($collection, $profile_id, $soldier_id)
 	{
 		$c = $this->_mdb->selectCollection($collection);
-    	$cache = $c->findOne(array('pid' => (string) $profile_id, 'sid' => $soldier_id));
+    	$cache = $c->findOne(array('profile_id' => (string) $profile_id, 'soldier_id' => $soldier_id));
 	}
 
 	public function insertIntoCache($collection, $profile_id, $soldier_id, $loadout)
@@ -38,8 +38,8 @@ class DB
 		$c = $this->_mdb->selectCollection($collection);
 		$c->insert(
             array(
-            'pid' => (string) $profile_id,
-            'sid' => $soldier_id,
+            'profile_id' => (string) $profile_id,
+            'soldier_id' => $soldier_id,
             'date' => date("Y-m-d H:i:s"),
             'loadout' => $loadout,
             )
@@ -51,12 +51,12 @@ class DB
 		$c = $this->_mdb->selectCollection($collection);
 		$c->update(
             array(
-                'pid' => (string) $profile_id,
-                'sid' => $soldier_id
+                'profile_id' => (string) $profile_id,
+                'soldier_id' => $soldier_id
             ),
             array(
-                'pid' => (string) $profile_id,
-                'sid' => $soldier_id,
+                'profile_id' => (string) $profile_id,
+                'soldier_id' => $soldier_id,
                 'date' => date("Y-m-d H:i:s"),
                 'loadout' => $loadout,
             )

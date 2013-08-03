@@ -1,6 +1,7 @@
 {
     "name": "piqus/bfp4f-limiter",
     "description": "Battlefield Play4Free weapon limiter script",
+    "keywords": ["php", "rcon", "bfp4f"],
     "require": {
         "piqus/bfp4f-rcon": "dev-master"        
     },

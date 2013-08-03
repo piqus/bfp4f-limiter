@@ -16,7 +16,7 @@
  * @link     https://github.com/piqus/bfp4f-limiter
  */
 
-require_once __DIR__ . 'limter-config.php';
-require_once __DIR__ . 'limiter-script.php';
+require_once __DIR__ . '/limiter-config.php';
+require_once __DIR__ . '/limiter-script.php';
 
 ?>

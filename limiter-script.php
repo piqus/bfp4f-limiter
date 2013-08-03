@@ -94,25 +94,24 @@ foreach ($players as $player) {
 
     /* Retrieve Loadout from cache collection or website.
      ****************************************************/
-    $c = $mdb->selectCollection($configs['colCache']);
-    $cache = $c->findOne(array('pid' => (string) $player->nucleusId, 'sid' => $player->cdKeyHash));
+    $cache = $db->selectFromCache($configs['colCache'], (string) $player->nucleusId, $player->cdKeyHash);
 
-    if (empty($cache)) {
+    if (empty($cache) || empty($cache['loadout'])) {
         $playerLoadout = new rcon\Stats((string) $player->nucleusId, $player->cdKeyHash);
         $loadout = $playerLoadout->retrieveLoadout();
 
         // Didn't recived JSON -> skip.
-        if (empty($loadout) === false) {
+        if (empty($loadout) === true) {
             continue;
         }
-
+        
         // Prepare loadout for storage into DB.
         foreach ($loadout['data']['equipment'] as $key => $value) {
             $loadout['storage'][$key] = $value['id'];
         }
 
         // Insert into cache collection
-        $db->insertIntoLogs($configs['colLogs'], (string) $player->nucleusId, $player->cdKeyHash, $loadout['storage']);
+        $db->insertIntoCache($configs['colCache'], (string) $player->nucleusId, $player->cdKeyHash, $loadout['storage']);
 
     } else {
         // Time Difference
@@ -133,7 +132,7 @@ foreach ($players as $player) {
             }
 
             // Update cache collection
-            $db->($configs['colCache'], (string) $player->nucleusId, $player->cdKeyHash, $loadout['storage']);
+            $db->updateCache($configs['colCache'], (string) $player->nucleusId, $player->cdKeyHash, $loadout['storage']);
         
         } else {
             // Cached - Just load it from DB
@@ -151,7 +150,7 @@ foreach ($players as $player) {
             if (($sup->weaponGetReqLvl($weapon) < $player->level) && in_array($weapon, $configs['prebuy_restricted']) ) {
                 $decision['kick'] = true;
                 $decision['weapon_id'] = $weapon;
-                $decision['reason'] => "Prebought gun: ".$sup->weaponGetName($weapon).". Already on ".$player->level." lvl";
+                $decision['reason'] = "Prebought gun: ".$sup->weaponGetName($weapon).". Already on ".$player->level." lvl";
             }
         }
 
@@ -160,16 +159,16 @@ foreach ($players as $player) {
         if (in_array($weapon, $scr['restrGuns'])) {
             $decision['kick'] = true;
             $decision['weapon_id'] = $weapon;
-            $decision['reason'] => "Disallowed gun: ".$sup->weaponGetName($weapon);
+            $decision['reason'] = "Disallowed gun: ".$sup->weaponGetName($weapon);
         }
     }
 
     /* For sure. Bai
      ***************/
-    if ($decision['kick'] === true) {
+    if ($decision['kick'] === false) {
         $reason = preg_replace('/%player/', $player->name, $scr['cstMessage']);
         $reason = preg_replace('/%weapon/', $sup->weaponGetName($decision['weapon_id']), $reason);
-        $rcp->kick($player->name, $reason);
+        // $rcp->kick($player->name, $reason);
 
         $db->insertIntoLogs($configs['colLogs'], (string) $player->nucleusId, $player->cdKeyHash, $player->name, $decision['reason']);
     }
