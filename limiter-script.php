@@ -168,7 +168,7 @@ foreach ($players as $player) {
     if ($decision['kick'] === false) {
         $reason = preg_replace('/%player/', $player->name, $scr['cstMessage']);
         $reason = preg_replace('/%weapon/', $sup->weaponGetName($decision['weapon_id']), $reason);
-        // $rcp->kick($player->name, $reason);
+        $rcp->kick($player->name, $reason);
 
         $db->insertIntoLogs($configs['colLogs'], (string) $player->nucleusId, $player->cdKeyHash, $player->name, $decision['reason']);
     }
