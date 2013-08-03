@@ -1,6 +1,8 @@
 <?php
 /**
- * Weapon Limiter - Configuration File
+ * Weapon Limiter 
+ * 
+ * Configuration File
  * 
  * Console script for Battlefield Play4Free community.
  * Kicks players with forbidden weapons like shotguns on selected server.
