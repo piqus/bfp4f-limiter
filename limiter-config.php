@@ -79,5 +79,7 @@ require_once VENDOR_DIR.'/autoload.php';
 // require_once "src/T4G/BFP4F/Rcon/Chat.php";
 // require_once "src/T4G/BFP4F/Rcon/Server.php";
 // require_once "src/T4G/BFP4F/Rcon/Support.php";
+// require_once "src/T4G/BFP4F/Rcon/Stats.php";
+
 
 ?>
