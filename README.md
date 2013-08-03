@@ -53,6 +53,12 @@ If you are using Windows and you haven't installed any WAMP package. You should 
 
 Next steps:
 
+* If you are using MySQL database:
+	* Open *phpmyadmin*, 
+	* Create new database called `limiter`, 
+	* Open *limiter* database viewport,
+	* Click *Import*,
+	* *Import from file*: `limiter.sql`.
 * Personalize (open limiter-config.php) it via code editor like Notepad++ or SublimeText or even standard Notepad. 
 * Open in your browser [http://localhost/limiter-browser.php](http://localhost/limiter-browser.php).
 
@@ -67,6 +73,12 @@ Step-by-step:
 * Copy source files to apache *web* folder (/var/www/ or to your own vhost).
 * Run composer `composer install` or download piqus/bfp4f-rcon, 
 comment `require_once VENDOR_DIR.'/autoload.php';`  and uncomment `require_once` statements.
+* If you are using MySQL database:
+	* Open *phpmyadmin*, 
+	* Create new database called `limiter`, 
+	* Open *limiter* database viewport,
+	* Click *Import*,
+	* *Import from file*: `limiter.sql`.
 * Edit limiter-config.php
 	* Console: `sh loop-limiter.sh` or `php limiter-console.php`
 	* CRON: Paste to `minutely/` directory
