@@ -7,12 +7,17 @@ Battlefield Play4Free weapon limiter script.
 
 Weapon limiter script needs some goodies to work:
 
-If you are using MongoDB:
+If you are using SQL database:
 
 * PHP >= 5.3
+* PHP PDO extension (included in PHP v5.3)
+
+Likely all LAMP/WAMPs have MySQL database include, so I don't think so you need links to external databases.
+
+If you are using MongoDB: 
+
 * (MongoDB)[http://www.mongodb.org/] or SQL database like **MySQL**.
 * PHP mongo extension (I recommend to download it from (PECL)[http://php.net/manual/en/mongo.installation.php]). If you are using MongoDB as database.
-* PHP PDO extension (included in PHP v5.3)
 
 You can get MongoDB database from (MongoLab)[https://www.mongohq.com/home] or (MongoHQ)[https://mongolab.com/welcome/]. 
 
@@ -49,7 +54,7 @@ If you are using Windows and you haven't installed any WAMP package. You should 
 Next steps:
 
 * Personalize (open limiter-config.php) it via code editor like Notepad++ or SublimeText or even standard Notepad. 
-* Open in your browser `(http://localhost/limiter-browser.php)[http://localhost/limiter-browser.php]`.
+* Open in your browser (http://localhost/limiter-browser.php)[http://localhost/limiter-browser.php].
 
 ## Linux ##
 
@@ -60,9 +65,11 @@ Step-by-step:
 
 * Install LAMP - Apache (*nix), MySQL/MongoDB (if mongo -> install mongo-ext for php from pecl).
 * Copy source files to apache *web* folder (/var/www/ or to your own vhost).
+* Run composer `composer install` or download piqus/bfp4f-rcon, 
+comment `require_once VENDOR_DIR.'/autoload.php';`  and uncomment `require_once` statements.
 * Edit limiter-config.php
-* Run via
 	* Console: `sh loop-limiter.sh` or `php limiter-console.php`
 	* CRON: Paste to `minutely/` directory
-	* Browser: Open `http://localhost/limiter-browser.php` (or other path to this file according to your webhost/vhost configuration)
+	* Browser: Open (http://localhost/limiter-browser.php)[http://localhost/limiter-browser.php] 
+	(or other path to this file according to your webhost/vhost configuration)
 
