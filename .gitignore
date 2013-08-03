@@ -1,0 +1,7 @@
+/phpunit.xml
+/vendor
+/build
+/composer.lock
+*.ignore
+*.sublime-project
+*.sublime-workspace
