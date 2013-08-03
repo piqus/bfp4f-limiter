@@ -16,10 +16,10 @@ Likely all LAMP/WAMPs have MySQL database include, so I don't think so you need 
 
 If you are using MongoDB: 
 
-* (MongoDB)[http://www.mongodb.org/] or SQL database like **MySQL**.
-* PHP mongo extension (I recommend to download it from (PECL)[http://php.net/manual/en/mongo.installation.php]). If you are using MongoDB as database.
+* [http://www.mongodb.org/](MongoDB) or SQL database like **MySQL**.
+* PHP mongo extension (I recommend to download it from [http://php.net/manual/en/mongo.installation.php](PECL)). If you are using MongoDB as database.
 
-You can get MongoDB database from (MongoLab)[https://www.mongohq.com/home] or (MongoHQ)[https://mongolab.com/welcome/]. 
+You can get MongoDB database from [https://www.mongohq.com/home](MongoLab) or [https://mongolab.com/welcome/](MongoHQ). 
 
 ## Installation ##
 
@@ -49,12 +49,12 @@ It depends on *environment* and operating system.
 
 ### Windows ###
 
-If you are using Windows and you haven't installed any WAMP package. You should try (winginx)[http://sourceforge.net/projects/winginx/]. It has all features what you need (except downloaded composer). Move piqus/bfp4f-limiter (and bfp4f-rcon) to you winginx `public_html` directory. 
+If you are using Windows and you haven't installed any WAMP package. You should try [http://sourceforge.net/projects/winginx/](winginx). It has all features what you need (except downloaded composer). Move piqus/bfp4f-limiter (and bfp4f-rcon) to you winginx `public_html` directory. 
 
 Next steps:
 
 * Personalize (open limiter-config.php) it via code editor like Notepad++ or SublimeText or even standard Notepad. 
-* Open in your browser (http://localhost/limiter-browser.php)[http://localhost/limiter-browser.php].
+* Open in your browser [http://localhost/limiter-browser.php](http://localhost/limiter-browser.php).
 
 ## Linux ##
 
@@ -70,6 +70,6 @@ comment `require_once VENDOR_DIR.'/autoload.php';`  and uncomment `require_once`
 * Edit limiter-config.php
 	* Console: `sh loop-limiter.sh` or `php limiter-console.php`
 	* CRON: Paste to `minutely/` directory
-	* Browser: Open (http://localhost/limiter-browser.php)[http://localhost/limiter-browser.php] 
+	* Browser: Open [http://localhost/limiter-browser.php](http://localhost/limiter-browser.php) 
 	(or other path to this file according to your webhost/vhost configuration)
 
