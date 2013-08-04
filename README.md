@@ -25,17 +25,11 @@ You can get MongoDB database from [https://www.mongohq.com/home](MongoLab) or [h
 
 ### Composer ###
 
-Create `composer.json`. Copy this snippet (below \/). 
+Run via console:
 
-```js
-{
-	"require": {
-		"piqus/bfp4f-limiter": "dev-master"
-	}
-}
 ```
-
-Run `composer install` (or `php composer.phar install` if you don't have already installed composer globally"
+create-project piqus/bfp4f-limiter path/to/where/should/be/limiter -s dev
+```
 
 ### By extracting .ZIPs ###
 
@@ -70,9 +64,7 @@ Of course depends on your linux distro distribution installation of MongoDB or L
 Step-by-step:
 
 * Install LAMP - Apache (*nix), MySQL/MongoDB (if mongo -> install mongo-ext for php from pecl).
-* Copy source files to apache *web* folder (/var/www/ or to your own vhost).
-* Run composer `composer install` or download piqus/bfp4f-rcon, 
-comment `require_once VENDOR_DIR.'/autoload.php';`  and uncomment `require_once` statements.
+* Download by composer or do it manually by downloading .zips and unpacking it to one folder. Remember about path to vendors.
 * If you are using MySQL database:
 	* Open *phpmyadmin*, 
 	* Create new database called `limiter`, 
