@@ -29,9 +29,9 @@ if ($scr['enabled'] === false) {
 
 /* Connect to server 
  ********************/
-$rc->ip = $srv['srv_rcon']['ip'];
-$rc->port = (int) $srv['srv_rcon']['port'];
-$rc->pwd = $srv['srv_rcon']['pwd'];
+$rc->ip = $configs['server_ip'];
+$rc->port = (int) $configs['server_port'];
+$rc->pwd = $configs['server_password'];
 
 $rc->connect($cn, $cs);
 
@@ -68,7 +68,7 @@ foreach ($players as $player) {
 
     /* Skip players with VIP status
      ******************************/
-    if ($scr['ignVIP'] === true) {
+    if ($configs['ignVIP'] === true) {
         if ($player->vip == 1) {
             continue;
         }
@@ -150,15 +150,17 @@ foreach ($players as $player) {
             if (($sup->weaponGetReqLvl($weapon) < $player->level) && in_array($weapon, $configs['prebuy_restricted']) ) {
                 $decision['kick'] = true;
                 $decision['weapon_id'] = $weapon;
+                $decision['type'] = "Prebuy";
                 $decision['reason'] = "Prebought gun: ".$sup->weaponGetName($weapon).". Already on ".$player->level." lvl";
             }
         }
 
         /* I haz too big gun?
          ********************/
-        if (in_array($weapon, $scr['restrGuns'])) {
+        if (in_array($weapon, $configs['restrGuns'])) {
             $decision['kick'] = true;
             $decision['weapon_id'] = $weapon;
+            $decision['type'] = "Weapon Limiter";
             $decision['reason'] = "Disallowed gun: ".$sup->weaponGetName($weapon);
         }
     }
@@ -168,6 +170,7 @@ foreach ($players as $player) {
     if ($decision['kick'] === false) {
         $reason = preg_replace('/%player/', $player->name, $scr['cstMessage']);
         $reason = preg_replace('/%weapon/', $sup->weaponGetName($decision['weapon_id']), $reason);
+        $reason = preg_replace('/%kick_type/', $decision['type'], $reason);
         $rcp->kick($player->name, $reason);
 
         $db->insertIntoLogs($configs['colLogs'], (string) $player->nucleusId, $player->cdKeyHash, $player->name, $decision['reason']);

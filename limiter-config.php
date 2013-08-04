@@ -24,32 +24,60 @@ date_default_timezone_set('Europe/London');
 // Load composer vendors 
 define('VENDOR_DIR', __DIR__ . '/vendor');
 
-$configs = array(
-    'cacheThres' => 30, // 30 minutes
+
+$config = array(
+
+    // If selected player was kicked how many minutes he won't be able to join server
+    'cacheThres' => 30,
+
+    // Collection/Table of Logs
     'colLogs' => 'logs',
+
+    // Collection/Table of Cache
     'colCache' => 'cache',
+
+    // Ignore VIPs
+    "ignVIP" => true,
+
+    // Ignore selected player to check their weapon slots?
     'ignored_members_enabled' => false,
+
+    // List of ignored players:
     'ignored_members' => array(
-            array('pid' => "2627733530", 'sid' => "609452444"),
-            array('pid' => "2627733530", 'sid' => "611528041"),
-        ),
+        // pid stands for profile_id
+        // sid stands for soldier_id
+        array('pid' => "2627733530", 'sid' => "609452444"),
+        array('pid' => "2627733530", 'sid' => "611528041"),
+    ),
+
+    // Kick for prebuy?
     'prebuy_enabled' => false,
-    'prebuy_restricted' => array(3000, 3008),
+
+    // Which weapons are checking for prebuy thingie
+    'prebuy_restricted' => array(
+        3000, 3008
+    ),
+
+    // Weapon limiter enabled?
+    "enabled" => true,
+
+    // Which weapons are disallowed on server
+    "restrGuns"  => array(
+        3000, 3024
+    ),
+
+    // Custom Autokick Message
+    "cstMessage" => "%player you are being autokicked for %weapon",
+
+    // Server IP
+    'server_ip' => "127.0.0.0",
+
+    //Server PORT
+    'server_port' => "27100",
+
+    // Server PASSWORD
+    'server_password' => "password",
 );
-
-$srv['srv_rcon']['ip']   = "127.0.0.0";
-$srv['srv_rcon']['port'] = "27100";
-$srv['srv_rcon']['pwd']  = "PASSWORD";
-
-$scr = array(
-      "cstMessage" => "%player you are being autokicked for %weapon",
-      "enabled"    => true,
-      "ignVIP"     => true,
-      "name"       => "Default Limiter",
-      "restrGuns"  => array(
-                            3000, 3024
-                        ),
-  );
 
 /* Connect to DB 
  ********************/
