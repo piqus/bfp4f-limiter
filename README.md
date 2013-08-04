@@ -28,7 +28,7 @@ You can get MongoDB database from [https://www.mongohq.com/home](MongoLab) or [h
 Run via console:
 
 ```
-create-project piqus/bfp4f-limiter path/to/where/should/be/limiter -s dev
+composer create-project piqus/bfp4f-limiter path/to/where/should/be/limiter -s dev
 ```
 
 ### By extracting .ZIPs ###
