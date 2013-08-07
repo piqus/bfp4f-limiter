@@ -11,7 +11,7 @@
  * @package  limiter
  * @author   piqus <ovirendo@gmail.com>
  * @license  MIT http://opensource.org/licenses/MIT
- * @version  0.1
+ * @version  0.2
  * @link     https://github.com/piqus/bfp4f-limiter
  */
 
@@ -22,7 +22,7 @@ $rc = new rcon\Base();
 
 /* Is limiter off? 
  ********************/
-if ($scr['enabled'] === false) {
+if ($configs['enabled'] === false) {
     echo('Limiter is switched off');
     exit(1);
 }
@@ -167,8 +167,8 @@ foreach ($players as $player) {
 
     /* For sure. Bai
      ***************/
-    if ($decision['kick'] === false) {
-        $reason = preg_replace('/%player/', $player->name, $scr['cstMessage']);
+    if ($decision['kick'] === true) {
+        $reason = preg_replace('/%player/', $player->name, $configs['cstMessage']);
         $reason = preg_replace('/%weapon/', $sup->weaponGetName($decision['weapon_id']), $reason);
         $reason = preg_replace('/%kick_type/', $decision['type'], $reason);
         $rcp->kick($player->name, $reason);

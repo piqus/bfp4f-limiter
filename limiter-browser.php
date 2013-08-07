@@ -11,7 +11,7 @@
  * @package  limiter
  * @author   piqus <ovirendo@gmail.com>
  * @license  MIT http://opensource.org/licenses/MIT
- * @version  0.1
+ * @version  0.2
  * @link     https://github.com/piqus/bfp4f-limiter
  */
 

@@ -9,12 +9,12 @@
  * @package  limiter
  * @author   piqus <ovirendo@gmail.com>
  * @license  MIT http://opensource.org/licenses/MIT
- * @version  0.1
+ * @version  0.2
  * @link     https://github.com/piqus/bfp4f-limiter
  */
 
 /**
-* DB Service Provider
+* SQL DB Service Provider
 */
 class DB
 {
@@ -44,11 +44,11 @@ class DB
 	/**
 	 * Insert into Logs table
 	 * 
-	 * @param  string $table        ?
-	 * @param  string $profile_id   ?
-	 * @param  int    $soldier_id   ?
-	 * @param  string $soldier_name ?
-	 * @param  string $reason       ?
+	 * @param  string $table        Name of table where logs will be stored in database
+	 * @param  string $profile_id   Player Profile ID
+	 * @param  int    $soldier_id   Player Soldier ID
+	 * @param  string $soldier_name Player Soldier Name
+	 * @param  string $reason       Reason for kick
 	 * 
 	 * @return void
 	 */
@@ -75,11 +75,11 @@ class DB
 	/**
 	 * selectFromCache
 	 * 
-	 * @param  string $table      ?
-	 * @param  string $profile_id ?
-	 * @param  string $soldier_id ?
+	 * @param  string $table      Name of table where is stored cache data
+	 * @param  string $profile_id Player Profile ID
+	 * @param  string $soldier_id Player Soldier ID
 	 * 
-	 * @return array
+	 * @return array Loadout stored in cache table.
 	 */
 	public function selectFromCache($table, $profile_id, $soldier_id)
 	{
@@ -102,10 +102,10 @@ class DB
 	/**
 	 * insertIntoCache
 	 * 
-	 * @param  string $table      ?
-	 * @param  string $profile_id ?
-	 * @param  int    $soldier_id ?
-	 * @param  string $loadout    ?
+	 * @param  string $table      Name of table where is stored cache data
+	 * @param  string $profile_id Player Profile ID
+	 * @param  int    $soldier_id Player Soldier ID
+	 * @param  string $loadout    Current Loadout of Player
 	 * 
 	 * @return int
 	 */
@@ -132,10 +132,10 @@ class DB
 	/**
 	 * updateCache description
 	 * 
-	 * @param  string $table      ?
-	 * @param  string $profile_id ?
-	 * @param  int    $soldier_id ?
-	 * @param  string $loadout    ?
+	 * @param  string $table      Name of table where is stored cache data
+	 * @param  string $profile_id Player Profile ID
+	 * @param  int    $soldier_id Player Soldier ID
+	 * @param  string $loadout    Current Loadout of Player
 	 * 
 	 * @return int
 	 */

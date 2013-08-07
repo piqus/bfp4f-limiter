@@ -11,12 +11,12 @@
  * @package  limiter
  * @author   piqus <ovirendo@gmail.com>
  * @license  MIT http://opensource.org/licenses/MIT
- * @version  0.1
+ * @version  0.2
  * @link     https://github.com/piqus/bfp4f-limiter
  */
 
-/* Configuration
- ********************/
+/* Environment Configuration
+ ***************************/
 
 ini_set('max_execution_time', 20);
 date_default_timezone_set('Europe/London');
@@ -24,8 +24,41 @@ date_default_timezone_set('Europe/London');
 // Load composer vendors 
 define('VENDOR_DIR', __DIR__ . '/vendor');
 
+/* Load Classes for COMPOSER
+ ***************************/
+require_once VENDOR_DIR.'/autoload.php';
 
-$config = array(
+//# or if you don't have composer #//
+// require_once "src/T4G/BFP4F/Rcon/Base.php";
+// require_once "src/T4G/BFP4F/Rcon/Players.php";
+// require_once "src/T4G/BFP4F/Rcon/Chat.php";
+// require_once "src/T4G/BFP4F/Rcon/Server.php";
+// require_once "src/T4G/BFP4F/Rcon/Support.php";
+// require_once "src/T4G/BFP4F/Rcon/Stats.php";
+
+/* Connect to DB 
+ ********************/
+define('DB_TYPE', 'mysql');
+
+define('DB_HOST', 'localhost');
+define('DB_PORT', '3306');
+define('DB_USER', 'root');
+define('DB_PASS', 'password');
+define('DB_NAME', 'limiter');
+
+if (DB_TYPE=="mongodb") {
+    require_once __DIR__ . '/DB-mongo.php';
+} else {
+    require_once __DIR__ . '/DB-pdosql.php';
+}
+
+$db = new DB();
+
+
+/* Limiter Configuration
+ ***********************/
+
+$configs = array(
 
     // If selected player was kicked how many minutes he won't be able to join server
     'cacheThres' => 30,
@@ -78,36 +111,5 @@ $config = array(
     // Server PASSWORD
     'server_password' => "password",
 );
-
-/* Connect to DB 
- ********************/
-define('DB_TYPE', 'mysql');
-
-define('DB_HOST', 'localhost');
-define('DB_PORT', '3306');
-define('DB_USER', 'root');
-define('DB_PASS', 'password');
-define('DB_NAME', 'limiter');
-
-if (DB_TYPE=="mongodb") {
-    require_once __DIR__ . '/DB-mongo.php';
-} else {
-    require_once __DIR__ . '/DB-pdosql.php';
-}
-
-$db = new DB();
-
-/* Load Classes for COMPOSER
- ***************************/
-require_once VENDOR_DIR.'/autoload.php';
-
-//// or if you don't have composer
-// require_once "src/T4G/BFP4F/Rcon/Base.php";
-// require_once "src/T4G/BFP4F/Rcon/Players.php";
-// require_once "src/T4G/BFP4F/Rcon/Chat.php";
-// require_once "src/T4G/BFP4F/Rcon/Server.php";
-// require_once "src/T4G/BFP4F/Rcon/Support.php";
-// require_once "src/T4G/BFP4F/Rcon/Stats.php";
-
 
 ?>
