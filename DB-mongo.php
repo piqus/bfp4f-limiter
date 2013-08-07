@@ -57,7 +57,7 @@ class DB
                 'soldier_id' => $soldier_id,
                 'soldier' => $soldier_name,
                 'date' => date("Y-m-d H:i:s"),
-                'reason' => $decision['reason'],
+                'reason' => $reason,
             )
         );
 	}
