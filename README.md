@@ -16,8 +16,8 @@ Likely all LAMP/WAMPs have MySQL database include, so I don't think so you need 
 
 If you are using MongoDB: 
 
-* [http://www.mongodb.org/](MongoDB) or SQL database like **MySQL**.
-* PHP mongo extension (I recommend to download it from [http://php.net/manual/en/mongo.installation.php](PECL)). If you are using MongoDB as database.
+* [http://www.mongodb.org/](MongoDB).
+* PHP mongo extension (I recommend to download it from [http://php.net/manual/en/mongo.installation.php](PECL)).
 
 You can get MongoDB database from [https://www.mongohq.com/home](MongoLab) or [https://mongolab.com/welcome/](MongoHQ). 
 
