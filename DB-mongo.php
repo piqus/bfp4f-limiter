@@ -23,7 +23,7 @@ class DB
      * 
      * @var object
      */    
-	private $mdb;
+	private $_mdb;
 
     /**
      * Contructor
@@ -34,7 +34,7 @@ class DB
 	{
 		$dsn = 'mongodb://'.DB_USER.':'.DB_PASS.'@'.DB_HOST.':'.DB_PORT.'/'.DB_NAME;
 		$m = new MongoClient(DB_NAME, array());
-		$this->_mdb = $m->selectDB($configs['db']);
+		$this->_mdb = $m->selectDB(DB_NAME);
 	}
 
     /**
@@ -55,7 +55,7 @@ class DB
             array(
                 'profile_id' => (string) $profile_id,
                 'soldier_id' => $soldier_id,
-                'soldier' => $player->name,
+                'soldier' => $soldier_name,
                 'date' => date("Y-m-d H:i:s"),
                 'reason' => $decision['reason'],
             )
