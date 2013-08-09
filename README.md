@@ -19,7 +19,7 @@ If you are using MongoDB:
 * [MongoDB](http://www.mongodb.org/).
 * PHP mongo extension (I recommend to download it from [PECL](http://php.net/manual/en/mongo.installation.php)).
 
-You can get MongoDB database from [MongoLab](https://www.mongohq.com/home) or [MongoHQ](https://mongolab.com/welcome/). 
+You can get MongoDB database from [MongoHQ](https://www.mongohq.com/home) or [MongoLab](https://mongolab.com/welcome/). 
 
 ## Installation ##
 
