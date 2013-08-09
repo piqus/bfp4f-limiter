@@ -11,8 +11,7 @@ If you are using SQL database:
 
 * PHP >= 5.3
 * PHP PDO extension (included in PHP v5.3)
-
-Likely all LAMP/WAMPs have MySQL database include, so I don't think so you need links to external databases.
+* MySQL, PostgreSQL or other SQL database working with PHP-PDO.
 
 If you are using MongoDB: 
 
@@ -64,7 +63,8 @@ Of course depends on your linux distro distribution installation of MongoDB or L
 Step-by-step:
 
 * Install LAMP - Apache (*nix), MySQL/MongoDB (if mongo -> install mongo-ext for php from pecl).
-* Download by composer or do it manually by downloading .zips and unpacking it to one folder. Remember about path to vendors.
+* Download by composer or do it manually by downloading .zips and unpacking it to one folder. 
+Remember about path to vendors.
 * If you are using MySQL database:
 	* Open *phpmyadmin*, 
 	* Create new database called `limiter`, 
