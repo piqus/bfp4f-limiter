@@ -147,7 +147,7 @@ foreach ($players as $player) {
         /* I haz too much monies?
          ************************/
         if ($configs['prebuy_enabled']===true) {
-            if (($sup->weaponGetReqLvl($weapon) < $player->level) && in_array($weapon, $configs['prebuy_restricted']) ) {
+            if (($sup->weaponGetReqLvl($weapon) > $player->level) && in_array($weapon, $configs['prebuy_restricted']) ) {
                 $decision['kick'] = true;
                 $decision['weapon_id'] = $weapon;
                 $decision['type'] = "Prebuy";
