@@ -188,7 +188,7 @@ foreach ($players as $player) {
 
             /* I haz too much monies?
              ************************/
-            if ($configs['weaponLimiter.prebuy_limiter_enabled']=="true") {
+            if ($configs['weaponLimiter.prebuy_limiter_enabled']===true) {
                 if (($sup->weaponGetReqLvl($weapon) > $player->level) && in_array($weapon, $configs['weaponLimiter.prebuy_limiter_restricted_guns']) ) {
                     $configs['cstMessage'] = $configs['weaponLimiter.custom_message'];
                     $decision['kick'] = true;
