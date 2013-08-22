@@ -84,16 +84,42 @@ foreach ($players as $player) {
         }
     }
 
+    // Get class name (inpired from roennel test_live example)
+    switch(true)
+    {
+        case strpos($player->kit, 'Medic') !== false:
+            $kit = "medics";
+            break;
+    
+        case strpos($player->kit, 'Assault') !== false:
+            $kit = "assaults";
+            break;
+    
+        case strpos($player->kit, 'Recon') !== false:
+            $kit = "recons";
+            break;
+    
+        case strpos($player->kit, 'Engineer') !== false:
+            $kit = "engineers";
+            break;
+
+        default:
+            //soldier is dead
+            $kit = "none"; 
+            break;
+    }
+
     /* Declare tmp variable
      **********************/
     $decision = array(
         'kick' => false,
         'weapon_id' => "",
         'level' => $player->level,
-        'class' => $player->kit,
+        'class' => $kit,
         'reason' => "autokick",
         'script' => "",
     );
+
 
     /* Test - Ignore Selected players (Not VIPs, but also not managed to leave)
      ***************************************************************************/
@@ -215,30 +241,6 @@ foreach ($players as $player) {
     /* Class Limiter
      ***************/
     if ($decision['kick']!==true && $configs['classLimiter.script_enabled']=="true") {
-        // Get class name (inpired from roennel test_live example)
-        switch(true)
-        {
-            case strpos($player->kit, 'Medic') !== false:
-                $kit = "medics";
-                break;
-        
-            case strpos($player->kit, 'Assault') !== false:
-                $kit = "assaults";
-                break;
-        
-            case strpos($player->kit, 'Recon') !== false:
-                $kit = "recons";
-                break;
-        
-            case strpos($player->kit, 'Engineer') !== false:
-                $kit = "engineers";
-                break;
-
-            default:
-                //soldier is dead
-                $kit = "none"; 
-                break;
-        }
         $team = $player->team;
         if ($kit!="none") {
             ++$classCounter[$team][$kit];
