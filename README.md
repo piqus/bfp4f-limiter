@@ -11,15 +11,14 @@ If you are using SQL database:
 
 * PHP >= 5.3
 * PHP PDO extension (included in PHP v5.3)
-
-Likely all LAMP/WAMPs have MySQL database include, so I don't think so you need links to external databases.
+* MySQL, PostgreSQL or other SQL database working with PHP-PDO.
 
 If you are using MongoDB: 
 
-* [http://www.mongodb.org/](MongoDB).
-* PHP mongo extension (I recommend to download it from [http://php.net/manual/en/mongo.installation.php](PECL)).
+* [MongoDB](http://www.mongodb.org/).
+* PHP mongo extension (I recommend to download it from [PECL](http://php.net/manual/en/mongo.installation.php)).
 
-You can get MongoDB database from [https://www.mongohq.com/home](MongoLab) or [https://mongolab.com/welcome/](MongoHQ). 
+You can get MongoDB database from [MongoHQ](https://www.mongohq.com/home) or [MongoLab](https://mongolab.com/welcome/). 
 
 ## Installation ##
 
@@ -43,7 +42,7 @@ It depends on *environment* and operating system.
 
 ### Windows ###
 
-If you are using Windows and you haven't installed any WAMP package. You should try [http://sourceforge.net/projects/winginx/](winginx). It has all features what you need (except downloaded composer). Move piqus/bfp4f-limiter (and bfp4f-rcon) to you winginx `public_html` directory. 
+If you are using Windows and you haven't installed any WAMP package. You should try [winginx](http://sourceforge.net/projects/winginx). It has all features what you need (except downloaded composer). Move piqus/bfp4f-limiter (and bfp4f-rcon) to you winginx `public_html` directory. 
 
 Next steps:
 
@@ -53,7 +52,7 @@ Next steps:
 	* Open *limiter* database viewport,
 	* Click *Import*,
 	* *Import from file*: `limiter.sql`.
-* Personalize (open limiter-config.php) it via code editor like Notepad++ or SublimeText or even standard Notepad. 
+* Personalize it. Open `limiter-config.php` via code editor like Notepad++ or SublimeText or even standard Notepad. 
 * Open in your browser [http://localhost/limiter-browser.php](http://localhost/limiter-browser.php).
 
 ## Linux ##
@@ -64,7 +63,8 @@ Of course depends on your linux distro distribution installation of MongoDB or L
 Step-by-step:
 
 * Install LAMP - Apache (*nix), MySQL/MongoDB (if mongo -> install mongo-ext for php from pecl).
-* Download by composer or do it manually by downloading .zips and unpacking it to one folder. Remember about path to vendors.
+* Download by composer or do it manually by downloading .zips and unpacking it to one folder. 
+Remember about path to vendors.
 * If you are using MySQL database:
 	* Open *phpmyadmin*, 
 	* Create new database called `limiter`, 
