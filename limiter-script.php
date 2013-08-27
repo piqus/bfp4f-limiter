@@ -11,7 +11,7 @@
  * @package  limiter
  * @author   piqus <ovirendo@gmail.com>
  * @license  MIT http://opensource.org/licenses/MIT
- * @version  0.3
+ * @version  0.3.1
  * @link     https://github.com/piqus/bfp4f-limiter
  */
 
@@ -22,7 +22,7 @@ $rc = new rcon\Base();
 
 /* Is limiter off? 
  ********************/
-if ($configs['general.script_enabled'] == "false") {
+if ($configs['general.script_enabled'] === false) {
     echo('Limiter is switched off'.PHP_EOL);
     exit(1);
 }
@@ -68,7 +68,6 @@ $classCounter[2] = array('assaults' => 0, 'engineers' => 0, 'medics' => 0, 'reco
  *************/
 
 foreach ($players as $player) {
-    ++$playerCounter;
 
     /* Skip player which has loading screen
      **************************************/
@@ -78,10 +77,35 @@ foreach ($players as $player) {
 
     /* Skip players with VIP status
      ******************************/
-    if ($configs['general.ignore_vips'] == "true") {
+    if ($configs['general.ignore_vips'] === true) {
         if ($player->vip == '1') {
             continue;
         }
+    }
+
+    // Get class name (inpired from roennel test_live example)
+    switch(true)
+    {
+        case strpos($player->kit, 'Medic') !== false:
+            $kit = "medic";
+            break;
+    
+        case strpos($player->kit, 'Assault') !== false:
+            $kit = "assault";
+            break;
+    
+        case strpos($player->kit, 'Recon') !== false:
+            $kit = "recon";
+            break;
+    
+        case strpos($player->kit, 'Engineer') !== false:
+            $kit = "engineer";
+            break;
+
+        default:
+            //soldier is dead
+            $kit = "none"; 
+            break;
     }
 
     /* Declare tmp variable
@@ -90,14 +114,15 @@ foreach ($players as $player) {
         'kick' => false,
         'weapon_id' => "",
         'level' => $player->level,
-        'class' => $player->kit,
+        'class' => $kit,
         'reason' => "autokick",
         'script' => "",
     );
 
+
     /* Test - Ignore Selected players (Not VIPs, but also not managed to leave)
      ***************************************************************************/
-    if ($configs['general.ignored_players_enabled'] == "true") {
+    if ($configs['general.ignored_players_enabled'] === true) {
         foreach ($configs['general.ignored_players'] as $ignored) {
             if ($ignored == $player->nucleusId) {
                 continue;
@@ -108,8 +133,8 @@ foreach ($players as $player) {
     /* Weapon Limiter and Prebuy Limiter
      ***********************************/
     if ($decision['kick']!==true 
-        && ($configs['weaponLimiter.weapon_limiter_enabled'] == "true" 
-            || $configs['weaponLimiter.prebuy_limiter_enabled'] == "true" )) {
+        && ($configs['weaponLimiter.weapon_limiter_enabled'] === true 
+            || $configs['weaponLimiter.prebuy_limiter_enabled'] === true )) {
             
         $cache = $db->selectFromCache($configs['colCache'], (string) $player->nucleusId, $player->cdKeyHash);
 
@@ -163,7 +188,7 @@ foreach ($players as $player) {
 
             /* I haz too much monies?
              ************************/
-            if ($configs['weaponLimiter.prebuy_limiter_enabled']=="true") {
+            if ($configs['weaponLimiter.prebuy_limiter_enabled']===true) {
                 if (($sup->weaponGetReqLvl($weapon) > $player->level) && in_array($weapon, $configs['weaponLimiter.prebuy_limiter_restricted_guns']) ) {
                     $configs['cstMessage'] = $configs['weaponLimiter.custom_message'];
                     $decision['kick'] = true;
@@ -176,7 +201,7 @@ foreach ($players as $player) {
 
             /* I haz too big gun?
              ********************/
-            if ($configs['weaponLimiter.weapon_limiter_enabled']=="true") {
+            if ($configs['weaponLimiter.weapon_limiter_enabled']===true) {
                 if (in_array($weapon, $configs['weaponLimiter.weapon_limiter_restricted_guns'])) {
                     $configs['cstMessage'] = $configs['weaponLimiter.custom_message'];
                     $decision['kick'] = true;
@@ -191,7 +216,7 @@ foreach ($players as $player) {
 
     /* Level Limiter
      ***************/
-    if ($decision['kick']!==true && $configs['levelLimiter.script_enabled']=="true") {
+    if ($decision['kick']!==true && $configs['levelLimiter.script_enabled']===true) {
 
         // Is Below Required?
         if ($player->level < $configs['levelLimiter.kick_below_level']) {
@@ -214,33 +239,10 @@ foreach ($players as $player) {
 
     /* Class Limiter
      ***************/
-    if ($decision['kick']!==true && $configs['classLimiter.script_enabled']=="true") {
-        // Get class name (inpired from roennel test_live example)
-        switch(true)
-        {
-            case strpos($player->kit, 'Medic') !== false:
-                $kit = "medics";
-                break;
-        
-            case strpos($player->kit, 'Assault') !== false:
-                $kit = "assaults";
-                break;
-        
-            case strpos($player->kit, 'Recon') !== false:
-                $kit = "recons";
-                break;
-        
-            case strpos($player->kit, 'Engineer') !== false:
-                $kit = "engineers";
-                break;
-
-            default:
-                //soldier is dead
-                $kit = "none"; 
-                break;
-        }
+    if ($decision['kick']!==true && $configs['classLimiter.script_enabled']===true) {
         $team = $player->team;
         if ($kit!="none") {
+            $kit = $kit . "s";
             ++$classCounter[$team][$kit];
         }
 
