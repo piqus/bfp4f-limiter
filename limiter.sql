@@ -28,8 +28,8 @@ SET time_zone = "+01:00";
 
 CREATE TABLE IF NOT EXISTS `cache` (
   `cache_id` int(11) NOT NULL AUTO_INCREMENT,
-  `profile_id` varchar(10) NOT NULL,
-  `soldier_id` int(9) NOT NULL,
+  `profile_id` varchar(20) NOT NULL,
+  `soldier_id` varchar(20) NOT NULL,
   `loadout` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`cache_id`)
@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `cache` (
 
 CREATE TABLE IF NOT EXISTS `logs` (
   `log_id` int(11) NOT NULL AUTO_INCREMENT,
-  `profile_id` varchar(10) NOT NULL,
-  `soldier_id` int(9) NOT NULL,
-  `soldier_name` varchar(60) DEFAULT NULL,
+  `profile_id` varchar(20) NOT NULL,
+  `soldier_id` varchar(20) NOT NULL,
+  `soldier_name` varchar(30) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reason` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`log_id`)

@@ -64,7 +64,7 @@ class DB
 		$date = date("Y-m-d H:i:s");
 
 		$stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
-		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_INT);
+		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_STR);
 		$stmt->bindParam(':soldier', $soldier_name, PDO::PARAM_STR);
 		$stmt->bindParam(':date', $date, PDO::PARAM_STR);
 		$stmt->bindParam(':reason', $reason, PDO::PARAM_STR);
@@ -89,7 +89,7 @@ class DB
     	$stmt = $this->_db->prepare($query);
 
 		$stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
-		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_INT);
+		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_STR);
 
 		$stmt->execute();
 
@@ -122,7 +122,7 @@ class DB
 		$loadout = json_encode($loadout);
 
 		$stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
-		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_INT);
+		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_STR);
 		$stmt->bindParam(':date', $date, PDO::PARAM_STR);
 		$stmt->bindParam(':loadout', $loadout, PDO::PARAM_STR);
 
@@ -155,7 +155,7 @@ class DB
 		$loadout = json_encode($loadout);
 
 		$stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
-		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_INT);
+		$stmt->bindParam(':soldier_id', $soldier_id, PDO::PARAM_STR);
 		$stmt->bindParam(':date', $date, PDO::PARAM_STR);
 		$stmt->bindParam(':loadout', $loadout, PDO::PARAM_STR);
 

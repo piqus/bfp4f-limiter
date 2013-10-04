@@ -138,6 +138,13 @@ $configs = array(
     // # %kit% - soldier class
     'weaponLimiter.custom_message' => "%player% you are being autokicked (%script% - %weapon%)",
 
+    
+    // Custom Global Message triggered when player is being kicked (when script uses loadout cache from DB)
+    // # %player% - person managed to leave, soldier name
+    // # %weapon% - found gun which violates Weapon or Prebuy Limiter
+    // ! Set up as empty string ("") or type (bool) false if you would like to disable this feature
+    'weapon.cache_msg' => "|ccc| %player% |ccc| please back in next X minutes because we are using cache",
+
     /* ------------------------------------
      * LEVEL LIMITER SCRIPT
      * ------------------------------------

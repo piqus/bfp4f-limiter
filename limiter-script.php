@@ -11,7 +11,7 @@
  * @package  limiter
  * @author   piqus <ovirendo@gmail.com>
  * @license  MIT http://opensource.org/licenses/MIT
- * @version  0.3.1
+ * @version  0.3.2
  * @link     https://github.com/piqus/bfp4f-limiter
  */
 
@@ -49,6 +49,9 @@ $rc->init();
 /* Retrieve data from game server 
  ********************************/
 
+// Create Chat Object
+$chat = new rcon\Chat();
+
 // Create Player Object
 $rcp = new rcon\Players();
 
@@ -69,6 +72,9 @@ $classCounter[2] = array('assaults' => 0, 'engineers' => 0, 'medics' => 0, 'reco
 
 foreach ($players as $player) {
 
+    // Temporary variable to detect is (not) used data from cache
+    $usesCache = false;
+
     /* Skip player which has loading screen
      **************************************/
     if ($player->connected != '1') {
@@ -83,7 +89,7 @@ foreach ($players as $player) {
         }
     }
 
-    // Get class name (inpired from roennel test_live example)
+    // Get class name (inspired from roennel test_live example)
     switch(true)
     {
         case strpos($player->kit, 'Medic') !== false:
@@ -103,8 +109,8 @@ foreach ($players as $player) {
             break;
 
         default:
-            //soldier is dead
-            $kit = "none"; 
+            //"none" - soldier is dead
+            $kit = "dead"; 
             break;
     }
 
@@ -142,7 +148,7 @@ foreach ($players as $player) {
             $playerLoadout = new rcon\Stats((string) $player->nucleusId, $player->cdKeyHash);
             $loadout = $playerLoadout->retrieveLoadout();
 
-            // Didn't recived JSON -> skip.
+            // Didn't received JSON -> skip.
             if (empty($loadout) === true) {
                 continue;
             }
@@ -179,6 +185,7 @@ foreach ($players as $player) {
             } else {
                 // Cached - Just load it from DB
                 $loadout['storage'] = $cache['loadout'];
+                $usesCache = true;
             }
         }
 
@@ -241,13 +248,13 @@ foreach ($players as $player) {
      ***************/
     if ($decision['kick']!==true && $configs['classLimiter.script_enabled']===true) {
         $team = $player->team;
-        if ($kit!="none") {
+        if ($kit!="dead") {
             $kit = $kit . "s";
             ++$classCounter[$team][$kit];
         }
 
         // You are too boring!
-        if ($kit!=="none" && ($classCounter[$team][$kit] > $configs['classLimiter.max_'.$kit])) {
+        if ($kit!=="dead" && ($classCounter[$team][$kit] > $configs['classLimiter.max_'.$kit])) {
             $configs['cstMessage'] = $configs['classLimiter.custom_message'];
             $decision['kick'] = true;
             $decision['type'] = "";
@@ -259,6 +266,13 @@ foreach ($players as $player) {
     /* Bai!
      ******/
     if ($decision['kick'] === true) {
+        if ($usesCache===true && isset($configs['weapon.cache_msg']) && !empty($configs['weapon.cache_msg']) && is_string($configs['weapon.cache_msg'])) {
+            $information = $configs['weapon.cache_msg'];
+            $reason = preg_replace('/%player%/', $player->name, $information);
+            $reason = preg_replace('/%weapon%/', $sup->weaponGetName($decision['weapon_id']), $information);
+            $chat->say($information);
+            usleep(200);
+        }
         $reason = preg_replace('/%player%/', $player->name, $configs['cstMessage']);
         $reason = preg_replace('/%weapon%/', $sup->weaponGetName($decision['weapon_id']), $reason);
         $reason = preg_replace('/%type%/', $decision['type'], $reason);
